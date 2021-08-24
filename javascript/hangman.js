@@ -1,38 +1,72 @@
 class Hangman {
   constructor(words) {
     this.words = words;
-    // ... your code goes here
+    this.secretWord = '';
+    this.letters = [];
+    this.guessedLetters = '';
+    this.errorsLeft = 10;
+    
   }
 
   pickWord() {
-    // ... your code goes here
+    let i = Math.floor(Math.random() * (this.words.length))
+    this.secretWord = this.words[i]
+    return this.secretWord
+    
   }
 
   checkIfLetter(keyCode) {
-    // ... your code goes here
+    if( keyCode <= 'z' && keyCode >= 'a'){
+      return true
+    } else{
+      return false
+    } 
   }
 
   checkClickedLetters(letter) {
-    // ... your code goes here
+    if(this.letters.includes(letter)){
+      return false
+    } else{
+      return true
+    }
   }
 
   addCorrectLetter(letter) {
-    // ... your code goes here
+    this.guessedLetters += letter
+    // if(this.secretWord.includes(this.guessedLetters){
+    //   return true 
+    // }
+    // if(this.secretWord.includes(letter)){
+    //    this.guessedLetters.push(letter)
+    
   }
 
   addWrongLetter(letter) {
-    // ... your code goes here
+    this.errorsLeft--;
+    if(!this.letters.includes(letter)){
+    this.letters.push(letter);
+    }
+    // if(this.letter.includes(letter))
+   //push to letters if is not in there
   }
 
   checkGameOver() {
-    // ... your code goes here
+    if(this.errorsLeft > 0){
+      return false
+    } else{
+      return true
+    }
   }
 
   checkWinner() {
-    // ... your code goes here
+    if(this.secretWord.includes(this.guessedLetters)){
+    return true 
+    }
+    else if(this.secretWord.includes(letter)){
+       this.guessedLetters.push(letter)
+    }
   }
 }
-
 let hangman;
 
 const startGameButton = document.getElementById('start-game-button');
@@ -40,10 +74,10 @@ const startGameButton = document.getElementById('start-game-button');
 if (startGameButton) {
   startGameButton.addEventListener('click', event => {
     hangman = new Hangman(['node', 'javascript', 'react', 'miami', 'paris', 'amsterdam', 'lisboa']);
-
+    // console.log(this.secretWord)
     // HINT (uncomment when start working on the canvas portion of the lab)
-    // hangman.secretWord = hangman.pickWord();
-    // hangmanCanvas = new HangmanCanvas(hangman.secretWord);
+    hangman.secretWord = hangman.pickWord();
+    hangmanCanvas = new HangmanCanvas(hangman.secretWord);
 
     // ... your code goes here
   });
@@ -53,3 +87,5 @@ document.addEventListener('keydown', event => {
   // React to user pressing a key
   // ... your code goes here
 });
+
+
